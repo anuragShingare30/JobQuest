@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../components/ui/button";
+import Link from "next/link";
 
 
 
@@ -10,7 +10,7 @@ const HomePage = () => {
       <div>
         <div className="navbar bg-base-300">
           {/* <img src="logo.svg" alt="logo" width="150px"/> */}
-          <h1 className="text-3xl font-bold mx-10">JobQuest</h1>
+          <h1 className="text-3xl font-bold mx-16">JobQuest</h1>
         </div>
       </div>
       <div className="flex items-center gap-12">
@@ -26,7 +26,10 @@ const HomePage = () => {
                 Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
                 quasi. In deleniti eaque aut repudiandae et a id nisi.
               </p>
-              <button className="btn btn-primary">Get Started</button>
+              <Link href='/Addjob'>
+                <button className="btn btn-primary">Get Started</button>
+              </Link>
+              
             </div>
 
           </div>
