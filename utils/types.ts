@@ -12,14 +12,14 @@ export type JobType = {
 
 export enum JobStatus  {
     Pending = 'pending',
-    Interview = 'interview',
+    Interview = 'interview', 
     Declined = 'declined'
 } ;
 
 export enum JobMode {
     FullTime = 'full-time',
     PartTime = 'part-time',
-    Internship = 'internship'
+    Internship = 'internship' 
 };
 
 

@@ -86,7 +86,7 @@ const Chat = () => {
                     />
                     <button
                         type="submit"
-                        className="btn btn-primary w-32 join-item rounded-lg mb-5 font-bold"
+                        className="btn btn-primary w-32 join-item rounded-2xl mb-5 font-bold"
                         disabled={isPending}
 
                     >

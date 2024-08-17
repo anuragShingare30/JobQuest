@@ -42,7 +42,7 @@ function CustomFormField({ name, control }) {
 
 
 function CustomFormSelect({ name, control, items, labelText }) {
-    return (
+    return ( 
         <FormField
             control={control}
             name={name}
