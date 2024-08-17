@@ -11,17 +11,17 @@ import { Button } from "../@/components/ui/button";
 
 import toast from 'react-hot-toast';
 
-
+ 
 
 
 function CreateJobForm() {
 
-    let {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm();
+    // let {
+    //     register,
+    //     handleSubmit,
+    //     watch,
+    //     formState: { errors },
+    // } = useForm();
 
     const form = useForm<CreateAndEditJobType>({
 
@@ -45,11 +45,10 @@ function CreateJobForm() {
         }
     }
 
-    function onFormSubmit(data: any) {
-        console.log(watch('username'));
-        console.log(data);
-        
-    }
+    // function onFormSubmit(data: any) {
+    //     console.log(watch('username'));
+    //     console.log(data);
+    // };
 
 
     return (
@@ -80,7 +79,7 @@ function CreateJobForm() {
                 </form>
             </Form>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
                 <form onSubmit={handleSubmit(onFormSubmit)}>
                 <label htmlFor="username">Username</label>
                 <input {...register("username")} type="text" placeholder="Enter username" key='user'/>
@@ -91,7 +90,7 @@ function CreateJobForm() {
                 </select>
                 <button type="submit" className="btn btn-sm btn-base-200" >Add</button>
             </form>
-        </div>
+        </div> */}
         </div > 
     );
 }

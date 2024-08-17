@@ -32,7 +32,7 @@ function CustomFormField({ name, control }) {
                     <FormControl>
                         <Input {...field} className='input input-bordered focus' autoFocus></Input>
                     </FormControl>
-                    <FormMessage></FormMessage>
+                    <FormMessage></FormMessage> 
                 </FormItem>
             )} 
         >
