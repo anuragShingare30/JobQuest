@@ -5,6 +5,7 @@ import Providers from './providers';
 import React from 'react';
 const inter = Inter({ subsets: ['latin'] });
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from '../@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'JobQuest - Search for tech Jobs',
@@ -18,9 +19,12 @@ export default function RootLayout({
 }) {
   return (
    <ClerkProvider>
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning> 
         <body className={inter.className}>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            </Providers>
+            <Toaster></Toaster>
         </body>
       </html>
    </ClerkProvider>

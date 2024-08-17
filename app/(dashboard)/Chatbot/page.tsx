@@ -1,9 +1,10 @@
 import React from 'react'
+import { Chat } from '../../../components/Chat';
 
 const Chatbot = () => {
   return (
     <div>
-        <h1 className='text-3xl'>Langchain chatbot</h1>
+        <Chat />
     </div>
   )
 }

@@ -73,6 +73,6 @@ export const theme = {
   },
 };
 export const plugins = [require('@tailwindcss/typography'), require('daisyui')];
-export const daisyui = {
-  themes: ['winter','night'],
-}
+export const daisyui= {
+  themes: ['winter', 'night'],
+};
