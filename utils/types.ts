@@ -24,7 +24,7 @@ export enum JobMode {
 
 
 export const CreateAndEditJobSchema = z.object({
-    position : z.string().min(2, {message:"Minimum of 2 characters are required!!!"}),
+    position : z.string().min(2, {message:"Minimum of 2 characters are required!!!"}), 
     company : z.string().min(2, {message:"Minimum of 2 characters are required!!!"}),
     location : z.string().min(2, {message:"Minimum of 2 characters are required!!!"}),
     mode : z.nativeEnum(JobMode),

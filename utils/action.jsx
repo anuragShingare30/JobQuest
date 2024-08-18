@@ -1,10 +1,14 @@
 'use server'
 import React from "react"
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import prisma from "./db";
+import { redirect } from "next/navigation";
+import { Prisma } from "@prisma/client";
+import {auth} from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 
 // THIS IS THE FUNCTION REQUIRED TO ASK QUESTION TO AI AND GET RESPONSE.
-async function getchatResponse(prompt: string) {
+async function getchatResponse(prompt) {
     // Access your API key as an environment variable
     const genAI = new GoogleGenerativeAI(process.env.API_KEY); 
     try {
@@ -36,4 +40,31 @@ async function getchatResponse(prompt: string) {
     }
   };
 
-export {getchatResponse};
+
+async function getClerkId(){
+  let {userId} = auth();
+  if(!userId){
+    throw new Error("User is not authenticated");
+  }
+  return userId;
+}
+
+async function createJobForm(value){
+  try {
+    let clerkId = await getClerkId();
+      let result =  await prisma.jobs.create({
+        data:{
+          ...value,
+          clerkId
+        }
+      })
+      revalidatePath('/');
+      return result;
+  } 
+  catch (error) {
+    console.log(error);
+      
+  }
+}
+
+export {getchatResponse, createJobForm};
