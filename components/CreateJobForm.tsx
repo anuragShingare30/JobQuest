@@ -8,14 +8,20 @@ import { CustomFormField, CustomFormSelect } from "./FormComponent"
 import { JobMode, JobStatus, JobType, CreateAndEditJobSchema, CreateAndEditJobType } from "../utils/types";
 import { Form } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createJobs } from "../utils/action";
 import toast from 'react-hot-toast';
+import { useRouter } from "next/navigation";
+import { useToast } from "../@/components/ui/use-toast";
 
 
 
 
 function CreateJobForm() {
 
+    const queryClient = useQueryClient();
+    const router = useRouter();
+    
     let {
         register,
         handleSubmit,
@@ -35,21 +41,29 @@ function CreateJobForm() {
         },
     });
 
+    let { mutate, isPending } = useMutation({
+        mutationFn: async (values: CreateAndEditJobType) =>  await createJobs(values) ,
+        onSuccess: (data) => {
+            if (!data) {
+                toast.error("Something went wrong!!");
+                return;
+            }
+            toast.success("Success");
+            router.push('/Jobs');
+            // queryClient.invalidateQueries({ queryKey: ['jobs'] });
+            // queryClient.invalidateQueries({ queryKey: ['stats'] });
+            // queryClient.invalidateQueries({ queryKey: ['charts'] });
+            return data;
+        }
+    })
+
+
     function onSubmit(values: CreateAndEditJobType) {
         console.log(values);
-        if (!values) {
-            toast.error("An Error Occured");
-        }
-        else {
-            toast.success("Successfully Submitted");
-        }
+        mutate(values);
     }
 
-    function onFormSubmit(data: any) {
-        console.log(watch('username'));
-        console.log(data);
-        
-    }
+
 
 
     return (
@@ -67,32 +81,19 @@ function CreateJobForm() {
                         <CustomFormField name='location' control={form.control}></CustomFormField>
 
                         {/* jobStatus */}
-
                         <CustomFormSelect name='status' control={form.control} items={Object.values(JobStatus)} labelText='Job Status'></CustomFormSelect>
                         {/* jobMode */}
-                        <CustomFormSelect name='Mode' control={form.control} items={Object.values(JobMode)} labelText='Job Profile'></CustomFormSelect>
+                        <CustomFormSelect name='mode' control={form.control} items={Object.values(JobMode)} labelText='Job Profile'></CustomFormSelect>
 
                     </div>
                     <Button
                         type='submit'
-                        className="self-end capitalize btn bg-neutral-300 text-neutral-900 mt-16"
-                    >Add Job</Button>
+                        className="self-end capitalize btn bg-neutral-300 text-neutral-900  mt-16"
+                        disabled={isPending}
+                    >{isPending ? "Loading..." : "Add Job"}</Button>
                 </form>
             </Form>
-
-            <div className="mt-10">
-                <form onSubmit={handleSubmit(onFormSubmit)}>
-                <label htmlFor="username">Username</label>
-                <input {...register("username")} type="text" placeholder="Enter username" key='user'/>
-                <select {...register("gender")}>
-                    <option value="female">female</option>
-                    <option value="male">male</option>
-                    <option value="other">other</option>
-                </select>
-                <button type="submit" className="btn btn-sm btn-base-200" >Add</button>
-            </form>
-        </div>
-        </div > 
+        </div >
     );
 }
 

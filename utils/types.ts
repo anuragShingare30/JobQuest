@@ -3,7 +3,7 @@ import * as z from "zod";
 export type JobType = {
     id:number,
     clerkId:string,
-    position:string,
+    position?:string,
     company:string,
     location:string,
     mode:string, 
@@ -11,7 +11,7 @@ export type JobType = {
 }
 
 export enum JobStatus  {
-    Pending = 'pending',
+    Pending = 'pending', 
     Interview = 'interview', 
     Declined = 'declined'
 } ;

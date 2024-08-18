@@ -1,6 +1,10 @@
 'use server'
 import React from "react"
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { CreateAndEditJobSchema, CreateAndEditJobType, JobType } from "./types";
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from "next/navigation";
+import prisma from "./db";
 
 
 // THIS IS THE FUNCTION REQUIRED TO ASK QUESTION TO AI AND GET RESPONSE.
@@ -36,4 +40,34 @@ async function getchatResponse(prompt: string) {
     }
   };
 
-export {getchatResponse};
+  function getClerkId():string{
+    let {userId} = auth();
+    if(!userId){
+      redirect('/');
+    };
+    return userId;
+  }
+
+async function createJobs(values: CreateAndEditJobType):Promise<JobType | null>{
+  let userId = getClerkId();
+  try {
+    CreateAndEditJobSchema.parse(values);
+    let result : JobType = await prisma.jobs.create({
+      data : {
+        position:values.position || "Developer",
+        location:values.location,
+        company:values.company,
+        mode:values.mode,
+        status:values.status,
+        clerkId:userId,
+      },
+    });
+    return result;
+  } 
+  catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export {getchatResponse, createJobs};
