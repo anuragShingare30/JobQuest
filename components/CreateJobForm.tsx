@@ -90,6 +90,7 @@ function CreateJobForm() {
                         type='submit'
                         className="self-end capitalize btn bg-neutral-300 text-neutral-900  mt-16"
                         disabled={isPending}
+
                     >{isPending ? "Loading..." : "Add Job"}</Button>
                 </form>
             </Form>

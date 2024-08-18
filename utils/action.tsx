@@ -28,7 +28,7 @@ async function getchatResponse(prompt: string) {
         ],
         generationConfig: {
           maxOutputTokens: 1000,
-          temperature: 0.1,
+          temperature: 0.1, 
         },
       });
       // console.log(result.response.text());
