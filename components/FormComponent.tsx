@@ -56,12 +56,12 @@ function CustomFormSelect({ name, control, items, labelText }) {
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectGroup className='flex flex-row gap-10 p-1'>
+                            <SelectGroup className='flex flex-row gap-10'>
                                 {
                                     items.map((item) => {
                                         return (
 
-                                            <SelectItem value={item} key={item} className='cursor-pointer p-2 mb-10'>{item}</SelectItem>
+                                            <SelectItem value={item} key={item} className='cursor-pointer mb-10'>{item}</SelectItem>
 
                                         );
                                     })
