@@ -20,7 +20,7 @@ import { Input } from '../@/components/ui/input';
 
 
 
-
+// FORM INPUT
 function CustomFormField({ name, control }) {
     return (
         <FormField
@@ -41,13 +41,14 @@ function CustomFormField({ name, control }) {
 }
 
 
+// SELECT INPUT
 function CustomFormSelect({ name, control, items, labelText }) {
     return ( 
         <FormField
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
+                <FormItem> 
                     <FormLabel className='capitalize'>{labelText || name}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
@@ -58,7 +59,7 @@ function CustomFormSelect({ name, control, items, labelText }) {
                         <SelectContent>
                             <SelectGroup className='flex flex-row gap-10'>
                                 {
-                                    items.map((item) => {
+                                    items.map((item) => {   
                                         return (
 
                                             <SelectItem value={item} key={item} className='cursor-pointer mb-10'>{item}</SelectItem>

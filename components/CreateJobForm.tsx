@@ -1,27 +1,26 @@
 'use client'
 import React from "react"
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import toast from 'react-hot-toast';
 import { createJobForm } from "../utils/action";
 import { useRouter } from "next/navigation";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-
 import {
     JobStatus,
     JobMode,
     CreateAndEditJobSchema,
-    CreateAndEditJobType,
 } from '../utils/types';
 
-import { Button } from '../@/components/ui/button';
-import { Form } from '../@/components/ui/form';
 
+import { Form } from '../@/components/ui/form';
 import { CustomFormField, CustomFormSelect } from './FormComponent';
+import { z } from "zod";
+
 function CreateJobForm() {
 
     // 1. Define your form.
-    const form = useForm<CreateAndEditJobType>({
+    const form = useForm<z.infer<typeof CreateAndEditJobSchema>>({
         resolver: zodResolver(CreateAndEditJobSchema),
         defaultValues: {
             position: '',
@@ -32,11 +31,14 @@ function CreateJobForm() {
         },
     });
 
+
+
+
     // let queryClient = useQueryClient();
     let Router = useRouter();
 
     const { mutate, isPending } = useMutation({
-        mutationFn: async (values : CreateAndEditJobType) => await createJobForm(values),
+        mutationFn: async (values : z.infer<typeof CreateAndEditJobSchema>) => await createJobForm(values),
         onSuccess: (data) => {
             if (!data) {
                 toast.error("Something went wrong");
@@ -53,7 +55,7 @@ function CreateJobForm() {
 
     });
 
-    function onSubmit(values:CreateAndEditJobType) {
+    function onSubmit(values:z.infer<typeof CreateAndEditJobSchema>) {
         console.log(values);
         mutate(values);
     };
@@ -107,4 +109,4 @@ function CreateJobForm() {
     );
 }
 
-export { CreateJobForm };
+export { CreateJobForm }; 
