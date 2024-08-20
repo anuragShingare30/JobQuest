@@ -2,9 +2,13 @@
 import React from "react"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import prisma from "./db";
+import { Prisma } from "@prisma/client";
 import {auth} from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { CreateAndEditJobSchema, CreateAndEditJobType, JobType } from "./types";
+import { CreateAndEditJobSchema, JobType, getJobsType} from "./types";
+import { z } from "zod";
+import { all } from "axios";
+
 
 
 
@@ -52,8 +56,9 @@ async function getchatResponse(prompt: string) {
 };
 
 
+
 // THIS FUNCTION WILL CREATE NEW JOBS.
-async function createJobForm(values:CreateAndEditJobType):Promise<JobType|null>{
+async function createJobForm(values:z.infer<typeof CreateAndEditJobSchema>):Promise<JobType|null>{
   let userId = getClerkId();
   try {
       CreateAndEditJobSchema.parse(values);
@@ -77,14 +82,62 @@ async function createJobForm(values:CreateAndEditJobType):Promise<JobType|null>{
 };
 
 
+
+
+
 // THIS FUNCTION WILL FETCH ALL THE JOBS ON THE BASIS OF QUERY.
-async function getAllJobs(){
+async function getAllJobs({
+  search,
+  jobStatus,
+  page=1,
+  limit=10,
+}: getJobsType):Promise<{
+    jobs:JobType[];
+    count:number;
+    page:number;
+    totalpage:number;
+}>{ 
+  let userId = getClerkId();
   try {
-    
+    let whereClause : Prisma.JobsWhereInput = {
+      clerkId:userId,
+    }
+
+    if(search){
+      whereClause = {
+        ...whereClause,
+        OR:[
+          {
+            position:{
+              contains:search,
+            }
+          },
+          {
+            company:{
+              contains:search,
+            }
+          }
+        ]
+      }
+      if(jobStatus && jobStatus !== 'all' ){
+        whereClause = {
+          ...whereClause,
+          status:jobStatus,
+        }
+      }
+    }
+    let jobs:JobType[] = await prisma.jobs.findMany({
+      where:whereClause,
+    });
+    return {jobs,count:0,page:1,totalpage:0};
   } 
   catch (error) {
     console.log(error);
+    return {jobs:[],count:0,page:1,totalpage:0};
   }
 };
+
+
+
 
 export {getchatResponse, createJobForm,getAllJobs};
