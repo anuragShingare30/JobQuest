@@ -16,7 +16,7 @@ export enum JobStatus  {
     Declined = 'declined'
 } ;
 
-export enum JobMode {
+export enum JobMode { 
     FullTime = 'full-time',
     PartTime = 'part-time',
     Internship = 'internship' 

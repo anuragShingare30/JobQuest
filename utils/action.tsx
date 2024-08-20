@@ -2,14 +2,15 @@
 import React from "react"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import prisma from "./db";
-import { redirect } from "next/navigation";
-import { Prisma } from "@prisma/client";
 import {auth} from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { CreateAndEditJobSchema, CreateAndEditJobType, JobType } from "./types";
 
-// THIS IS THE FUNCTION REQUIRED TO ASK QUESTION TO AI AND GET RESPONSE.
-async function getchatResponse(prompt) {
+
+
+
+// THIS FUNCTION IS AN VIRTUAL AI ASSISTANT (CAN BE FINE-TUNED).
+async function getchatResponse(prompt: string) {
     // Access your API key as an environment variable
     const genAI = new GoogleGenerativeAI(process.env.API_KEY); 
     try {
@@ -19,7 +20,7 @@ async function getchatResponse(prompt) {
       const result = await model.generateContent({
         contents: [
           {
-            role: 'user',
+            role: 'user', 
             parts: [
               {
                 text: prompt,
@@ -48,8 +49,10 @@ async function getchatResponse(prompt) {
     throw new Error("User is not authenticated");
   }
   return userId;
-}
+};
 
+
+// THIS FUNCTION WILL CREATE NEW JOBS.
 async function createJobForm(values:CreateAndEditJobType):Promise<JobType|null>{
   let userId = getClerkId();
   try {
@@ -71,6 +74,17 @@ async function createJobForm(values:CreateAndEditJobType):Promise<JobType|null>{
     console.log(error);
     return null;
   }
-}
+};
 
-export {getchatResponse, createJobForm};
+
+// THIS FUNCTION WILL FETCH ALL THE JOBS ON THE BASIS OF QUERY.
+async function getAllJobs(){
+  try {
+    
+  } 
+  catch (error) {
+    console.log(error);
+  }
+};
+
+export {getchatResponse, createJobForm,getAllJobs};
