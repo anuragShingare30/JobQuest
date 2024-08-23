@@ -99,11 +99,17 @@ async function getAllJobs({
 }>{ 
   let userId = getClerkId();
   try {
+
+    // 'whereClause' is nothing but the 'where' condition we set-in for prisma search.
     let whereClause : Prisma.JobsWhereInput = {
       clerkId:userId,
-    }
+    };
 
+    // This will extract the job on the basis of 'search' variable.
     if(search){
+
+      // Here value of 'whereClause' will be 'clerkId' and 'search' value.
+      // We have set 'OR' value here, the query input can be 'position' or 'company'.
       whereClause = {
         ...whereClause,
         OR:[
@@ -119,6 +125,7 @@ async function getAllJobs({
           }
         ]
       }
+      // If 'jobStatus' 
       if(jobStatus && jobStatus !== 'all' ){
         whereClause = {
           ...whereClause,

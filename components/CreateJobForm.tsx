@@ -84,6 +84,7 @@ function CreateJobForm() {
                             control={form.control}
                             labelText='job status'
                             items={Object.values(JobStatus)}
+                            
                         />
                         {/* job  type */}
                         <CustomFormSelect

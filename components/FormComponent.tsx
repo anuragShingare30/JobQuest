@@ -51,17 +51,17 @@ function CustomFormSelect({ name, control, items, labelText }) {
                     <FormLabel className='capitalize'>{labelText || name}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                            <SelectTrigger className="w-[screen] btn btn-ghost btn-sm">
+                            <SelectTrigger className="w-[screen] btn btn-ghost btn-sm mb-10">
                                 <SelectValue />
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectGroup className='flex flex-row gap-10'>
+                            <SelectGroup className='flex sm:flex-col  items-center gap-4 p-3'>
                                 {
                                     items.map((item) => {   
                                         return (
 
-                                            <SelectItem value={item} key={item} className='cursor-pointer mb-10'>{item}</SelectItem>
+                                            <SelectItem value={item} key={item} className='cursor-pointer'>{item}</SelectItem>
 
                                         );
                                     })

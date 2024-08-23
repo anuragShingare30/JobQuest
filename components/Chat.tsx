@@ -78,7 +78,7 @@ const Chat = () => {
                 <div className="join w-full absolute bottom-auto mt-5">
                     <input
                         type="text"
-                        placeholder="Message VoyageVision"
+                        placeholder="Ask me anything!!!"
                         className="input input-bordered join-item w-full"
                         name="text"
                         value={text}
