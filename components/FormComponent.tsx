@@ -29,7 +29,7 @@ function CustomFormField({ name, control }) {
                 <FormItem>
                     <FormLabel className='capitalize'>{name}</FormLabel>
                     <FormControl>
-                        <Input {...field} className='input input-bordered focus' autoFocus></Input>
+                        <Input {...field} className='input input-bordered focus rounded-xl' autoFocus></Input>
                     </FormControl>
                     <FormMessage></FormMessage> 
                 </FormItem>
@@ -56,7 +56,7 @@ function CustomFormSelect({ name, control, items, labelText }) {
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectGroup className='flex sm:flex-col  items-center gap-4 p-3'>
+                            <SelectGroup className='flex flex-row  items-center gap-4 p-1 rounded-lg'>
                                 {
                                     items.map((item) => {   
                                         return (

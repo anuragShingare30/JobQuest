@@ -47,13 +47,13 @@ const SearchForm = () => {
   return (
     <div>
       <Label htmlFor="search" className='font-semibold text-xl'>Search Jobs</Label>
-      <form onSubmit={handleSubmit} className='grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10'>
+      <form onSubmit={handleSubmit} className='gap-4 mb-10'>
         <div className='flex flex-row items-center join w-full'>
         <Input
           type="text"
           placeholder='Ex : SWE - 1 , Amazon , Flipkart'
           name='search'
-          className='w-full input input-bordered focus join-item'
+          className='w-full input input-bordered focus join-item rounded-xl'
           autoFocus
         // defaultValue={search}
         />
@@ -62,7 +62,7 @@ const SearchForm = () => {
         <div className='mb-10 mt-4'>
         <Label htmlFor="jobstatus" className='font-semibold text-xl'>Select JobStatus</Label>
           <Select name='jobstatus' defaultValue={jobstatus}>
-            <SelectTrigger className="w-[180px] btn btn-ghost btn-sm">
+            <SelectTrigger className="w-[screen] btn btn-ghost btn-sm">
               <SelectValue placeholder="Select JobStatus" />
             </SelectTrigger>
             <SelectContent>

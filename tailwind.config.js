@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export const darkMode = ["class"];
+export const darkMode = [""];
 export const content = [
-  './pages/**/*.{ts,tsx}',
-  './components/**/*.{ts,tsx}',
-  './app/**/*.{ts,tsx}',
-  './src/**/*.{ts,tsx}',
+  './pages/**/*.{ts,tsx,jsx,js}',
+  './components/**/*.{ts,tsx,jsx}',
+  './app/**/*.{ts,tsx,jsx,js}',
+  './src/**/*.{ts,tsx,jsx,js}',
 ];
 export const prefix = "";
 export const theme = {
@@ -72,7 +72,7 @@ export const theme = {
     },
   },
 };
-export const plugins = [require('@tailwindcss/typography'), require('daisyui')];
-export const daisyui= {
+export const plugins = [require("tailwindcss-animate"),require('@tailwindcss/typography'), require('daisyui'),];
+export const daisyui = {
   themes: ['winter', 'night'],
 };

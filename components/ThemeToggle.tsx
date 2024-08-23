@@ -22,7 +22,7 @@ function ThemeToggle() {
 
     return (
         <button className="btn btn-sm btn-outline" onClick={toggleTheme}>
-            {theme === "night" ? (
+            {theme === "sunset" ? (
                 <LuSunMedium className="h-4 w-4"/> 
             ) : (
                 <IoMoonOutline className="w-4 h-4"/>

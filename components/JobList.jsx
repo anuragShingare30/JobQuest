@@ -34,9 +34,9 @@ const JobList = () => {
   }
 
   return (
-    <div className='grid grid-cols-2'>
+    <div className='flex flex-col items-start'>
       <h1 className='text-3xl mb-10'>Jobs List</h1>
-      <div className='grid md:grid-cols-2'>
+      <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-4'>
         {
           jobs.map((job, index) => {
             return (
