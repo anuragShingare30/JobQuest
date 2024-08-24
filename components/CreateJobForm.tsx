@@ -1,6 +1,6 @@
 'use client'
 import React from "react"
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query"; 
 import toast from 'react-hot-toast';
 import { createJobForm } from "../utils/action";
 import { useRouter } from "next/navigation";

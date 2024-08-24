@@ -62,15 +62,15 @@ const SearchForm = () => {
         <div className='mb-10 mt-4'>
         <Label htmlFor="jobstatus" className='font-semibold text-xl'>Select JobStatus</Label>
           <Select name='jobstatus' defaultValue={jobstatus}>
-            <SelectTrigger className="w-[screen] btn btn-ghost btn-sm">
+            <SelectTrigger className="w-[screen] btn rounded-xl btn-sm">
               <SelectValue placeholder="Select JobStatus" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup className='cursor-pointer flex flex-row items-center gap-4'> 
+              <SelectGroup className='cursor-pointer flex items-center gap-4 rounded-xl'>
                 {
                   ["all", ...Object.values(JobStatus)].map((jobstatus) => {
                     return (
-                      <SelectItem value={jobstatus} key={jobstatus} className='capitalize'>{jobstatus}</SelectItem>
+                      <SelectItem value={jobstatus} key={jobstatus} className='capitalize btn-sm bg-base-300 rounded-xl'>{jobstatus}</SelectItem>
                     );
                   })
                 }

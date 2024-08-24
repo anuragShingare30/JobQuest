@@ -145,6 +145,24 @@ async function getAllJobs({
 };
 
 
+async function deleteJobAction(id: any){
+  try {
+    let userId = getClerkId();
+    let job = await prisma.jobs.delete({
+      where:{
+        id,
+        clerkId:userId
+      }
+    });
+
+    return job;
+  } 
+  catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 
-export {getchatResponse, createJobForm,getAllJobs};
+
+export {getchatResponse, createJobForm,getAllJobs,deleteJobAction};

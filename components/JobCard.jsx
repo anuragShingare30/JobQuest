@@ -1,7 +1,12 @@
 import React from 'react';
 import { Label } from '../@/components/ui/label';
 import { Button } from '../@/components/ui/button';
-import { Badge } from '../@/components/ui/badge';
+import { FaSuitcase } from "react-icons/fa6";
+import { LiaBroadcastTowerSolid } from "react-icons/lia";
+import { IoLocationSharp } from "react-icons/io5";
+import { MdDateRange } from "react-icons/md";
+import Link from 'next/link';
+import {DeleteJobBtn} from "./DeleteJobBtn";
 
 const JobCard = ({ job }) => {
   let { position, company, location, mode, status, createdAt } = job;
@@ -21,26 +26,29 @@ const JobCard = ({ job }) => {
       </div>
 
       <div className='grid  md:grid-cols-2 gap-4 w-full'>
-        <div className='border p-1 rounded-md'>
-          <Label>Status</Label>
+
+        <div className='flex flex-row items-center gap-1 border p-2 rounded-md'>
+          <Label><LiaBroadcastTowerSolid /></Label>
           <h1 className='font-semibold'>{status}</h1>
         </div>
-        <div className='border p-1 rounded-md'>
-          <Label>Mode</Label>
+        <div className='flex flex-row items-center gap-1 border p-2 rounded-md'>
+          <Label><FaSuitcase /></Label>
           <h1 className='font-semibold'>{mode}</h1>
         </div>
-        <div className='border p-1 rounded-md'>
-          <Label>Location</Label>
+        <div className='flex flex-row items-center gap-1 border p-2 rounded-md'>
+          <Label><IoLocationSharp /></Label>
           <h1 className='font-semibold'>{location}</h1>
         </div>
-        <div className='border p-1 rounded-md'>
-          <Label>Date</Label>
+        <div className='flex flex-row items-center gap-1 border p-2 rounded-md'>
+          <Label><MdDateRange /></Label>
           <h1 className='font-semibold'>{formattedDate}</h1>
         </div>
       </div>
-
-
-      <Button className='w-[screen] btn btn-ghost btn-outline rounded-xl'>Apply Now</Button>
+      
+      <div className='flex flex-row items-center gap-4'>
+      <Button className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm'>Edit</Button>
+      <DeleteJobBtn id={job.id} />
+      </div>
 
     </div>
   );
