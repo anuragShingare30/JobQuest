@@ -44,13 +44,25 @@ const EditJobForm = ({ jobId }) => {
     const form = useForm<z.infer<typeof CreateAndEditJobSchema>>({
         resolver: zodResolver(CreateAndEditJobSchema),
         defaultValues: {
-            position: data?.position || '',
-            company: data?.company || '',
-            location: data?.location || '',
-            status: (data?.status as JobStatus) || JobStatus.Pending,
-            mode: (data?.mode as JobMode) || JobMode.FullTime,
+            position: '',
+            company: '',
+            location: '',
+            status: JobStatus.Pending,
+            mode: JobMode.FullTime,
         },
     });
+    
+    React.useEffect(() => {
+        if (data) {
+            form.reset({
+                position: data?.position || '',
+                company: data?.company || '',
+                location: data?.location || '',
+                status: data?.status as JobStatus || JobStatus.Pending,
+                mode: data?.mode as JobMode || JobMode.FullTime,
+            });
+        }
+    }, [data, form]);
 
 
     function onSubmit(values: z.infer<typeof CreateAndEditJobSchema>) {
@@ -95,7 +107,7 @@ const EditJobForm = ({ jobId }) => {
                         className='self-end capitalize btn text-neutral-500 btn-base-300 mt-12'
                         disabled={isPending}
                     >
-                        {isPending ? "Loading..." : "Add Job"}
+                        {isPending ? "Loading..." : "Edit Job"}
                     </button>
                 </form>
             </Form>

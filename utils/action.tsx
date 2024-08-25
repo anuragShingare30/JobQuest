@@ -146,8 +146,8 @@ async function getAllJobs({
 
 
 async function deleteJobAction(id: any){
+  let userId = getClerkId();
   try {
-    let userId = getClerkId();
     let job = await prisma.jobs.delete({
       where:{
         id,
@@ -164,18 +164,15 @@ async function deleteJobAction(id: any){
 };
 
 
-async function getSingleJob(id:any):Promise<JobType | null>{
+async function getSingleJob(id:number):Promise<JobType | null>{
+  let userId = getClerkId();
   try {
-    let userId = getClerkId();
     let result = await prisma.jobs.findUnique({
       where:{
         id,
         clerkId:userId,
       }
     });
-    if(!result){
-      revalidatePath('/Jobs');
-    }
     return result;
   } 
   catch (error) {
