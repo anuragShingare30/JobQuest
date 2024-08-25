@@ -16,22 +16,22 @@ const JobList = () => {
 
   let { isPending, data } = useQuery({
     queryKey: ['jobs', search ?? '', jobstatus, page],
-    queryFn: async () => await getAllJobs({ search: search, jobStatus: jobstatus, page: page }),
+    queryFn: async () => await getAllJobs({ search: search, jobStatus: jobstatus, page: page }), 
   });
 
   let jobs = data?.jobs || [];
-
+  
   if (isPending) {
     return (
       <span className='loading loading-dots'></span>
     );
   };
-
-  if (!jobs) {
+  if (!data) {
     return (
       <h1 className='text-3xl'>No Jobs Found!!!</h1>
     );
   }
+
 
   return (
     <div className='flex flex-col items-start'>

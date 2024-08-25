@@ -161,8 +161,49 @@ async function deleteJobAction(id: any){
     console.log(error);
     return null;
   }
+};
+
+
+async function getSingleJob(id:any):Promise<JobType | null>{
+  try {
+    let userId = getClerkId();
+    let result = await prisma.jobs.findUnique({
+      where:{
+        id,
+        clerkId:userId,
+      }
+    });
+    if(!result){
+      revalidatePath('/Jobs');
+    }
+    return result;
+  } 
+  catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+
+async function updateJob(id:any,values:z.infer<typeof CreateAndEditJobSchema>):Promise<JobType | null>{
+  try {
+    let userId = getClerkId();
+    let result = await prisma.jobs.update({
+      where:{
+        id,
+        clerkId:userId,
+      },
+      data:{
+        ...values,
+      },
+    });
+    return result;
+  } 
+  catch (error) {
+    console.log(error);
+    return null;
+  }
 }
 
 
-
-export {getchatResponse, createJobForm,getAllJobs,deleteJobAction};
+export {getchatResponse, createJobForm,getAllJobs,deleteJobAction,getSingleJob,updateJob};

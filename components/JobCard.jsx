@@ -6,7 +6,7 @@ import { LiaBroadcastTowerSolid } from "react-icons/lia";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import Link from 'next/link';
-import {DeleteJobBtn} from "./DeleteJobBtn";
+import { DeleteJobBtn } from "./DeleteJobBtn";
 
 const JobCard = ({ job }) => {
   let { position, company, location, mode, status, createdAt } = job;
@@ -44,10 +44,12 @@ const JobCard = ({ job }) => {
           <h1 className='font-semibold'>{formattedDate}</h1>
         </div>
       </div>
-      
+
       <div className='flex flex-row items-center gap-4'>
-      <Button className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm'>Edit</Button>
-      <DeleteJobBtn id={job.id} />
+        <Link href={`/Jobs/${job.id}`}>
+          <Button className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm'>Edit</Button>
+        </Link>
+        <DeleteJobBtn id={job.id} />
       </div>
 
     </div>

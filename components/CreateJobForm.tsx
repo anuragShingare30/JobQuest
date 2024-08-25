@@ -11,11 +11,11 @@ import {
     JobMode,
     CreateAndEditJobSchema,
 } from '../utils/types';
-
-
-import { Form } from '../@/components/ui/form';
 import { CustomFormField, CustomFormSelect } from './FormComponent';
-import { z } from "zod";
+import { Form } from '../@/components/ui/form';
+import { z } from "zod"; 
+
+
 
 function CreateJobForm() {
 
