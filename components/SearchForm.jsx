@@ -23,9 +23,10 @@ const SearchForm = () => {
   let searchParams = useSearchParams();
   let search = searchParams.get('search');
   let jobstatus = searchParams.get('jobstatus') || 'all';
+  console.log(search,jobstatus);
+  
 
-
-  // // OPTIONAL
+  // OPTIONAL
   // let router = useRouter();
   // let pathname = usePathname();
 
@@ -36,11 +37,11 @@ const SearchForm = () => {
     console.log(search, jobstatus);
 
 
-    // Here our moto was to set the query in our url.
+    // // Here our moto was to set the query in our url.
     // // OPTIONAL
     // let params = new URLSearchParams();
     // params.set('search',search);
-    // params.set('status',status);
+    // params.set('jobstatus',jobstatus);
     // router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -55,8 +56,8 @@ const SearchForm = () => {
           name='search'
           className='w-full input input-bordered focus join-item rounded-xl'
           autoFocus
-        // defaultValue={search}
-        />
+          defaultValue={search}
+        />  
         <button type='submit' className='btn text-3xl join-item'><CiSearch /></button>
         </div>
         <div className='mb-10 mt-4'>

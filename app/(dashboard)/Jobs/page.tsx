@@ -12,7 +12,7 @@ import {JobList} from "../../../components/JobList";
 const JobsPage = async  () => {
   await new Promise((resolve)=> {setTimeout(resolve,1000)});
   let queryClient = new QueryClient();
-
+ 
   await queryClient.prefetchQuery({
     queryKey:['jobs','','all',1],
     queryFn: async ()=> await getAllJobs({}),

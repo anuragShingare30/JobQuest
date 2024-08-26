@@ -47,7 +47,7 @@ const JobCard = ({ job }) => {
 
       <div className='flex flex-row items-center gap-4'>
         <Link href={`/Jobs/${job.id}`}>
-          <Button className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm'>Edit</Button>
+          <Button disabled className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm ' >Edit</Button>
         </Link>
         <DeleteJobBtn id={job.id} />
       </div>

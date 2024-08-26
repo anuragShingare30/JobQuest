@@ -6,10 +6,10 @@ export type JobType = {
     id:number,
     clerkId:string,
     position?:string,
-    company:string,
-    location:string,
-    mode:string, 
-    status:string,
+    company?:string,
+    location?:string,
+    mode?:string, 
+    status?:string,
 };
 
 // THIS IS USED FOR SELECT COMPONENT

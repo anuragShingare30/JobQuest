@@ -1,5 +1,5 @@
-'use client'
-import React from 'react'
+'use client';
+import React from 'react';
 import { updateJob, getSingleJob } from "../utils/action";
 import { z } from "zod";
 import { useForm } from 'react-hook-form';
@@ -21,49 +21,45 @@ const EditJobForm = ({ jobId }) => {
     let router = useRouter();
     const queryClient = useQueryClient();
 
-    let { data } = useQuery({
+    let { data,isError } = useQuery({
         queryKey: ['job', jobId],
         queryFn: async () => await getSingleJob(jobId),
     });
 
     let { mutate, isPending } = useMutation({
-        mutationFn: async (values: z.infer<typeof CreateAndEditJobSchema>) => await updateJob(jobId, values),
+        mutationFn: async (values: z.infer<typeof CreateAndEditJobSchema>) => 
+            await updateJob(jobId, values),
         onSuccess: (data) => {
             if (!data) {
                 toast.error('Something went wrong!!!');
             }
             toast.success('Successfully Edited');
-            // queryClient.invalidateQueries({ queryKey: ['jobs'] });
-            // queryClient.invalidateQueries({ queryKey: ['job', jobId] });
-            // queryClient.invalidateQueries({ queryKey: ['stats'] });
+            queryClient.invalidateQueries({ queryKey: ['jobs'] });
+            queryClient.invalidateQueries({ queryKey: ['job', jobId] });
+            queryClient.invalidateQueries({ queryKey: ['stats'] });
+            queryClient.invalidateQueries({ queryKey: ['charts'] });
             router.push('/Jobs');
-            
+
         }
     });
+    console.log(data);
 
+    if (isError || !data) {
+        return <div className='text-3xl mt-10'>Error loading job data</div>;  // Display an error message if data fetching fails or job data is null
+    }
+    
     const form = useForm<z.infer<typeof CreateAndEditJobSchema>>({
         resolver: zodResolver(CreateAndEditJobSchema),
         defaultValues: {
-            position: '',
-            company: '',
-            location: '',
-            status: JobStatus.Pending,
-            mode: JobMode.FullTime,
+            position: data?.position,
+            company: data?.company,
+            location: data?.location,
+            status: data?.status as JobStatus || JobStatus.Pending,
+            mode: data?.mode as JobMode || JobMode.FullTime,
         },
     });
-    
-    React.useEffect(() => {
-        if (data) {
-            form.reset({
-                position: data?.position || '',
-                company: data?.company || '',
-                location: data?.location || '',
-                status: data?.status as JobStatus || JobStatus.Pending,
-                mode: data?.mode as JobMode || JobMode.FullTime,
-            });
-        }
-    }, [data, form]);
 
+    
 
     function onSubmit(values: z.infer<typeof CreateAndEditJobSchema>) {
         console.log(values);

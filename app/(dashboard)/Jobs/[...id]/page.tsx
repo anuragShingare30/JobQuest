@@ -9,9 +9,9 @@ import {
 } from '@tanstack/react-query';
 
 
-const singleJobsPage = async ({ params }) => {
+const singleJobsPage = async ({ params }:{ params: { id: number } }) => { 
 
-    // let jobId = params.id;
+    // let jobId = params.id; 
     let queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({

@@ -5,11 +5,10 @@ import prisma from "./db";
 import { Prisma } from "@prisma/client";
 import {auth} from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { CreateAndEditJobSchema, JobType, getJobsType} from "./types";
-import { z } from "zod";
-import { all } from "axios";
-
-
+import { CreateAndEditJobSchema, JobMode, JobStatus, JobType, getJobsType} from "./types";
+import { map, z } from "zod";
+import { redirect } from "next/navigation";
+import dayjs  from "dayjs";
 
 
 
@@ -164,28 +163,27 @@ async function deleteJobAction(id: any){
 };
 
 
-async function getSingleJob(id:number):Promise<JobType | null>{
+async function getSingleJob(id: number): Promise<JobType | null> {
   let userId = getClerkId();
   try {
-    let result = await prisma.jobs.findUnique({
-      where:{
-        id,
-        clerkId:userId,
-      }
-    });
-    return result;
-  } 
-  catch (error) {
-    console.log(error);
-    return null;
+      const job = await prisma.jobs.findUnique({
+          where: {
+              id,
+              clerkId: userId,
+          },
+      });
+      return job ? job : null;  // Ensure that null is returned if no job is found
+  } catch (error) {
+      console.error("Error fetching job:", error);
+      return null;  // Return null in case of any error
   }
-};
+}
 
 
-async function updateJob(id:any,values:z.infer<typeof CreateAndEditJobSchema>):Promise<JobType | null>{
+async function updateJob(id:number,values:z.infer<typeof CreateAndEditJobSchema>){
+  let userId = getClerkId();
   try {
-    let userId = getClerkId();
-    let result = await prisma.jobs.update({
+    let result : JobType = await prisma.jobs.update({
       where:{
         id,
         clerkId:userId,
@@ -200,7 +198,88 @@ async function updateJob(id:any,values:z.infer<typeof CreateAndEditJobSchema>):P
     console.log(error);
     return null;
   }
+};
+
+
+async function getStatsAction(){
+  let userId = getClerkId();
+  try {
+    let stats = await prisma.jobs.groupBy({
+      where:{
+        clerkId:userId,
+      },
+      by:['status'],
+      _count:{
+        status:true
+      }
+    });
+
+    let jobs = {};
+
+    let data = stats.map((job)=>{
+      jobs = {
+        count:job._count.status,
+        status:job.status,
+      };
+      return jobs;
+    })
+    // console.log(data);
+    return data;
+
+  } 
+  catch (error) {
+    console.log(error);
+    return null;
+      
+  }
+};
+
+// // THIS WILL BE THE OUTPUT FOR THE ABOVE FUNCTION WHERE WE ARE CALCULATING THE TOTAL INPUT ENTRIES.
+// [
+//   { _count: { status: 33 }, status: 'declined' },
+//   { _count: { status: 41 }, status: 'interview' },
+//   { _count: { status: 29 }, status: 'pending' }
+// ]
+
+
+async function getChartsAction(){
+  let userId = getClerkId();
+  let date = dayjs().subtract(6,'month').toDate();
+  try {
+    let charts = await prisma.jobs.findMany({
+      where:{
+        clerkId:userId,
+        createdAt:{
+          gte:date,
+        },
+      },
+      orderBy:{
+        createdAt:'asc',
+      }
+    });
+    
+    let applicationsPerMonth = charts.reduce((acc, job) => {
+      const date = dayjs(job.createdAt).format('MMM YY');
+
+      const existingEntry = acc.find((entry) => entry.date === date);
+
+      if (existingEntry) {
+        existingEntry.count += 1;
+      } else {
+        acc.push({ date, count: 1 });
+      }
+
+      return acc;
+    }, [] as Array<{ date: string; count: number }>);
+    
+
+    // console.log(applicationsPerMonth);
+    return applicationsPerMonth;
+  } 
+  catch (error) {
+    console.log(error);
+    return null; 
+  }
 }
 
-
-export {getchatResponse, createJobForm,getAllJobs,deleteJobAction,getSingleJob,updateJob};
+export {getchatResponse, createJobForm,getAllJobs,deleteJobAction,getSingleJob,updateJob, getStatsAction,getChartsAction};

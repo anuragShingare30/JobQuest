@@ -26,7 +26,7 @@ function CustomFormField({ name, control }) {
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
+                <FormItem defaultValue={field.value}>
                     <FormLabel className='capitalize'>{name}</FormLabel>
                     <FormControl>
                         <Input {...field} className='input input-bordered focus rounded-xl' autoFocus></Input>
