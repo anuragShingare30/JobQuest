@@ -264,13 +264,13 @@ async function getChartsAction(){
       const existingEntry = acc.find((entry) => entry.date === date);
 
       if (existingEntry) {
-        existingEntry.count += 1;
+        existingEntry.JobsApplied += 1;
       } else {
-        acc.push({ date, count: 1 });
+        acc.push({ date, JobsApplied: 1 });
       }
 
       return acc;
-    }, [] as Array<{ date: string; count: number }>);
+    }, [] as Array<{ date: string; JobsApplied: number }>);
     
 
     // console.log(applicationsPerMonth);

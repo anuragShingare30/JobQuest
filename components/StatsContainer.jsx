@@ -20,11 +20,11 @@ const StatsContainer = () => {
 
 
   return (
-    <div className='md:flex  flex-row gap-20'>
+    <div className='lg:flex  flex-row gap-20'>
       {
-        data.map((stat) => {
+        data.map((stat,index) => {
           return (
-            <div className='flex flex-row items-center gap-16 bg-base-300 rounded p-4 mt-10'>
+            <div className='flex flex-row items-center gap-16 bg-base-300 rounded p-4 mt-10' key={index} id={index}>
               <h1 className='text-xl font-bold  capitalize'>{stat.status}</h1>
               <h1 className='text-3xl font-bold  text-blue-600'>{stat.count}</h1>
             </div>
