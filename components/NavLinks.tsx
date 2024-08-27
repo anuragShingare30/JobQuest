@@ -19,12 +19,10 @@ function Navlink() {
       {
         links.map((link, index) => {
           return (
-            <div className="flex flex-row items-center gap-3 btn  btn-ghost w-full text-xl capitalize">
-            <Link href={link.link} key={index} className="flex flex-row items-center gap-3">
+            <Link href={link.link} key={index} className="btn  btn-ghost w-full text-xl capitalize">
               <h1 className="text-xl">{link.logo}</h1>
               <button>{link.title}</button>
             </Link>
-            </div>
           );
         })
       }
