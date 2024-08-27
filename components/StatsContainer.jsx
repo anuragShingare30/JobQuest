@@ -10,7 +10,8 @@ const StatsContainer = () => {
     queryFn: async () => await getStatsAction(),
   });
 
-  if (isError) {
+  
+  if (data.length===0) {
     return (
       <span className='text-xl'>No Stats found...</span>
     );

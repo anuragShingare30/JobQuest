@@ -27,7 +27,7 @@ const StatsPage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-        <h1 className='text-3xl'>Get Your Job Stats here...</h1>
+        <h1 className='text-3xl'>Get Your Job Stats here</h1>
         <div className='p-10 md:mx-7 flex flex-col items-center'>
         <StatsContainer />
         <ChartsContainer />
