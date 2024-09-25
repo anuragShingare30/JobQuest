@@ -7,5 +7,5 @@ const JobInfo = () => {
     </div>
   )
 }
-
+ 
 export {JobInfo};

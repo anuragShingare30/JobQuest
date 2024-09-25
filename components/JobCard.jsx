@@ -49,7 +49,7 @@ const JobCard = ({ job }) => {
         <Link href={`/Jobs/${job.id}`}>
           <Button disabled className='w-[screen] btn btn-ghost btn-outline rounded-xl btn-sm ' >Edit</Button>
         </Link>
-        <DeleteJobBtn id={job.id} />
+        <DeleteJobBtn id={job.id} /> 
       </div>
 
     </div>

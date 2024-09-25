@@ -46,7 +46,7 @@ async function getchatResponse(prompt: string) {
   };
 
 
- function getClerkId(){
+function getClerkId(){
   let {userId} = auth();
   if(!userId){
     throw new Error("User is not authenticated");
@@ -265,7 +265,8 @@ async function getChartsAction(){
 
       if (existingEntry) {
         existingEntry.JobsApplied += 1;
-      } else {
+      } 
+      else {
         acc.push({ date, JobsApplied: 1 });
       }
 

@@ -19,7 +19,7 @@ const JobList = () => {
     queryFn: async () => await getAllJobs({ search: search, jobStatus: jobstatus, page: page }), 
   });
 
-  let jobs = data?.jobs || [];
+  let jobs = data?.jobs || []; 
   
   if (isPending) {
     return (

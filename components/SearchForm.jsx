@@ -81,7 +81,7 @@ const SearchForm = () => {
         </div>
         
       </form>
-    </div>
+    </div> 
 
   )
 }
