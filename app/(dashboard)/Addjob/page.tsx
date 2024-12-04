@@ -4,7 +4,7 @@ import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
+} from '@tanstack/react-query'; 
 
 
 const AddJob = async () => {
@@ -20,7 +20,7 @@ const AddJob = async () => {
         <CreateJobForm></CreateJobForm>
       </div>
     </div>
-    </HydrationBoundary>
+    </HydrationBoundary> 
   )
 } 
  

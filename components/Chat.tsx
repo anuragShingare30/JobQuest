@@ -19,7 +19,7 @@ const Chat = () => {
             }
             // Assuming result is the key holding the chat response
             let result = data.content.parts[0].text;
-            setMessages((prevMessages) => [...prevMessages, { role: 'bot', parts: [{ text: result }] }]);
+            setMessages((prevMessages) => [...prevMessages, { role: 'bot', parts: [{ text: result }] }]); 
         }
     });
 

@@ -9,7 +9,7 @@ export type JobType = {
     company?:string,
     location?:string,
     mode?:string, 
-    status?:string,
+    status?:string, 
 };
 
 // THIS IS USED FOR SELECT COMPONENT
@@ -26,6 +26,7 @@ export enum JobMode {
     Internship = 'internship' 
 }; 
 
+// THIS TS TYPE IS USED WHEN WE ARE RETURNING SOME DATA FROM DATABASE.
 export type getJobsType = {
     search?:string,
     jobStatus?:string,

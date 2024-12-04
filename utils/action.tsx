@@ -45,7 +45,7 @@ async function getchatResponse(prompt: string) {
     }
   };
 
-
+ 
 function getClerkId(){
   let {userId} = auth();
   if(!userId){

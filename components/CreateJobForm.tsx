@@ -17,7 +17,7 @@ import { z } from "zod";
 
 
 
-function CreateJobForm() {
+function CreateJobForm() {  
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof CreateAndEditJobSchema>>({
@@ -45,7 +45,7 @@ function CreateJobForm() {
                 return;
             }
             toast.success("Submitted");
-            Router.push('/Jobs');
+            Router.push('/Jobs');   
             // queryClient.invalidateQueries({ queryKey: ['jobs'] });
             // queryClient.invalidateQueries({ queryKey: ['stats'] });
             // queryClient.invalidateQueries({ queryKey: ['charts'] });
